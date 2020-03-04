@@ -28,6 +28,7 @@ jobs:
     - name: Setup Angular
       run: |
         npm install -g @angular/cli
+        npm install -g @angular-devkit/schematics
         ng update
  
     - name: Build project   
