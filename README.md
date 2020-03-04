@@ -1,2 +1,3 @@
 # InTechNet.Pupils
-InTechNet front-end in Angular - pupils side
+
+InTechNet front-end in Angular - Pupils side
