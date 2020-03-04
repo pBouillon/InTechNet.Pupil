@@ -22,13 +22,13 @@ jobs:
     - name: Setup Node
       run: |
         cd ./intechnet-pupils/
-        npm update
         npm install
+        npm update
 
     - name: Setup Angular
       run: |
-        npm install -g @angular/cli
-        npm install -g @angular-devkit/schematics
+        npm install @angular/cli
+        npm install @angular-devkit/schematics
         ng update
  
     - name: Build project   
