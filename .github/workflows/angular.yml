@@ -18,12 +18,13 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Setup environment
+    - name: Setup Node
       run: |
         npm update
         npm install
+
+    - name: Setup Angular
         npm install -g @angular/cli
-        npm install @angular-devkit/build-angular
         ng update
  
     - name: Build project   
