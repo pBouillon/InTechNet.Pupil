@@ -13,6 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
       with:
@@ -20,6 +21,7 @@ jobs:
 
     - name: Setup Node
       run: |
+        cd ./intechnet-pupils/
         npm update
         npm install
 
@@ -30,5 +32,4 @@ jobs:
  
     - name: Build project   
       run: |
-        cd ./intechnet-pupils/
-        ng b --prod --progress false
+        npm run build:ci
