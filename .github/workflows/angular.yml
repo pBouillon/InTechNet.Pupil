@@ -20,8 +20,11 @@ jobs:
 
     - name: Setup environment
       run: |
-       npm install
-       npm install -g @angular/cli
+        npm update
+        npm install
+        npm install -g @angular/cli
+        npm install @angular-devkit/build-angular
+        ng update
  
     - name: Build project   
       run: |
