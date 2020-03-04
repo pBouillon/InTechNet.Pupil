@@ -1,4 +1,4 @@
-name: Node.js CI
+name: Angular CI
 
 on: [push]
 
@@ -25,5 +25,5 @@ jobs:
  
     - name: Build project   
       run: |
-        cd ./intechnet-moderator/
+        cd ./intechnet-pupils/
         ng b --prod --progress false
