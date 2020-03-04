@@ -32,4 +32,4 @@ jobs:
  
     - name: Build project   
       run: |
-        npm run build:ci
+        npm run --prefix intechnet-pupils/ build:ci
