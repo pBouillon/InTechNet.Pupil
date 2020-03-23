@@ -1,0 +1,95 @@
+<!-- Title section -->
+<div class="container" id="title">
+
+    <!-- Title -->
+    <div class="d-flex justify-content-center p-5">
+        <div>
+            <h1 class="title text-center">Connexion <span class="text-success">élève</span></h1>
+        </div>
+    </div>
+    <!-- /Title -->
+</div>
+<!-- /Title section -->
+
+<!-- Form content -->
+<div class="container">
+    <form [formGroup]="loginForm" (ngSubmit)="OnSubmitForm()">
+
+        <!-- Identifier -->
+        <div class="form-group row justify-content-center">
+            <label for="loginField"
+                    class="col-sm-3 col-form-label"
+                    [ngClass]="{'text-danger': isFieldInvalid('login')}">
+                Identifiant ou e-mail
+            </label>
+            <div class="col-sm-5">
+                <input type="text" 
+                    class="form-control" 
+                    formControlName="login" 
+                    id="loginField" 
+                    placeholder="thomas.a@anderson.me" 
+                    [ngClass]="{'border border-danger': isFieldInvalid('login')}" 
+                    required />
+
+                <small *ngIf="isFieldInvalid('login')" class="text-danger">
+                    <span *ngIf="f.login.errors && f.login.errors.required">
+                        Nous avons besoin de votre identifiant pour vous montrer votre board
+                    </span>
+                </small>
+            </div>
+        </div>
+        <!-- /Identifier -->
+
+        <!-- Password -->
+        <div class="form-group row justify-content-center">
+            <label for="passwordField"
+                    class="col-sm-3 col-form-label"
+                    [ngClass]="{'text-danger': isFieldInvalid('password')}">
+                Mot de passe
+            </label>
+            <div class="col-sm-5">
+                <input type="password" 
+                    class="form-control" 
+                    formControlName="password" 
+                    id="passwordField" 
+                    placeholder="Mot de passe" 
+                    [ngClass]="{'border border-danger': isFieldInvalid('password')}"
+                    required />
+
+                <small *ngIf="isFieldInvalid('password')" class="text-danger">
+                    <span *ngIf="f.password.errors && f.password.errors.required">
+                        Difficile d'être sûr qu'il s'agit de vous sans mot de passe !
+                    </span>
+                </small>
+            </div>
+        </div>
+        <!-- /Password -->
+
+        <!-- Form buttons -->
+        <div class="form-group row justify-content-center">
+            <button type="submit" 
+                    class="order-lg-2 mr-lg-2 mr-md-5 mx-4 my-2 col-sm-1 col-md-5 col-lg-3 btn btn-success" 
+                    [disabled]="!loginForm.valid">
+                Se connecter
+            </button>
+        </div>
+        <!-- /Form buttons -->
+
+        <!-- Registration link -->
+        <div class="m-auto text-center">
+            Pas encore inscrit ? <a [routerLink]="registerLink" class="text-success">Créer un compte !</a>
+        </div>
+        <!-- /Registration link -->
+
+        <!-- Moderator connection link -->
+        <div class="row mt-1">
+            <small class="m-auto text-center text-muted">
+                <a [href]="loginLinkModerator">Cliquez ici pour vous connecter en tant que <span class="text-success">modérateur</span></a>
+            </small>
+        </div>
+        <!-- /Moderator connection link -->
+
+    </form>
+
+</div>
+<!-- /Form content -->

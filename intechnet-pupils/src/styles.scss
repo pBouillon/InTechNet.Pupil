@@ -1,1 +1,26 @@
-/* You can add global styles to this file, and also import other style files */
+// Import the default project's font
+@import url('https://fonts.googleapis.com/css?family=Montserrat:300');
+
+// Define constants
+$global-font: 'Montserrat';
+
+// CSS Reset
+body, h1, h2, h3, h4, h5, h6, p, ol, ul {
+  margin: 0;
+  padding: 0;
+  font-weight: normal;
+}
+
+body, app-root {
+  min-height: 100vh;
+}
+
+// Global default style
+body {
+  font-family: $global-font, "Helvetica Neue", sans-serif;
+  text-shadow: 2px black;
+}
+
+a, a:hover {
+  color: inherit;
+}

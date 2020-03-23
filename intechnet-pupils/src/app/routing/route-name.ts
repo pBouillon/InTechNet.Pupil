@@ -1,0 +1,25 @@
+import { environment } from 'src/environments/environment';
+
+/**
+ * @summary Defines all routes constants
+ */
+export enum RouteName {
+    // Authentication
+    LOGIN = 'login',
+
+    // Redirect to moderator login
+    LOGIN_MODERATOR_EXTERNAL = 'login',
+
+    // Register
+    REGISTER = 'register',
+
+    // Profil
+    BOARD = 'board',
+
+    // Contact
+    CONTACT_EXTERNAL =  'contact',
+
+    // Global / Homepage
+    HOMEPAGE = 'login',
+    ROOT = ''
+}

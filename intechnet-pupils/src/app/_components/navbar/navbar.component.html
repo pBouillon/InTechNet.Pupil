@@ -1,0 +1,63 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light shadow p-3 mb-5 bg-white rounded sticky-top">
+
+    <a class="navbar-brand" [routerLink]="" (click)="goHome()">In<span class="text-success">Tech</span>Net</a>
+
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Main navigation -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <!-- Authenticated pupil -->
+        <ul *ngIf="authenticationService.isPupilLoggedIn; else guestNavigation"
+            class="navbar-nav mr-auto">
+            <li class="nav-item itn-nav-item mr-3">
+                <a class="nav-link" [routerLink]="profilLinkRoute">Board</a>
+            </li>
+            <li class="nav-item itn-nav-item mr-3">
+                <a class="nav-link" [href]="contactLinkRoute">Contact</a> 
+            </li>
+        </ul>
+        <!-- /Authenticated pupil -->
+
+        <!-- Guest -->
+        <ng-template #guestNavigation>
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item itn-nav-item mr-3">
+                    <a class="nav-link" [routerLink]="homepageLinkRoute">Accueil</a>
+                </li>
+                <li class="nav-item itn-nav-item mr-3">
+                    <a class="nav-link" [href]="contactLinkRoute">Contact</a>
+                </li>
+            </ul>
+        </ng-template>
+        <!-- /Guest -->
+    <!-- /Main navigation -->
+
+    <!-- Authentication section -->
+        <!-- Authenticated pupil -->
+        <ul *ngIf="authenticationService.isPupilLoggedIn; else guestAuthentication"
+            class="navbar-nav mr-0">
+            <li class="nav-item itn-nav-item">
+                <a class="nav-link" [routerLink]="" (click)="disconnect()">Se déconnecter</a>
+            </li>
+        </ul>
+        <!-- /Authenticated pupil -->
+
+        <!-- Guest -->
+        <ng-template #guestAuthentication>
+            <ul class="navbar-nav mr-0">
+                <li class="nav-item itn-nav-item">
+                    <a class="nav-link" [routerLink]="registerLinkRoute">S'inscrire</a>
+                </li>
+                <li class="nav-item itn-nav-item">
+                    <a class="nav-link" [routerLink]="loginLinkRoute">Se connecter</a>
+                </li>
+            </ul>
+        </ng-template>
+        <!-- /Guest -->
+    </div>
+    <!-- /Authentication section -->
+
+</nav>
