@@ -4,17 +4,26 @@ import { LoginComponent } from './authentication/login/login.component';
 import { RouteName } from './routing/route-name';
 import { BoardComponent } from './board/board/board.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
-
+import { RegisterComponent } from './authentication/register/register.component';
+import { AuthenticationGuard } from './_guards/authentication-guard/authentication.guard';
 
 const routes: Routes = [
   // Authentication
   // ----------
   { path: RouteName.LOGIN, component: LoginComponent },
 
+  // Register
+  // ----------
+  { path: RouteName.REGISTER, component: RegisterComponent },
+
   // Board and management
   // ----------
   // Main board
-  { path: RouteName.BOARD, component: BoardComponent },
+  {
+    path: RouteName.BOARD,
+    component: BoardComponent,
+    canActivate: [ AuthenticationGuard ]
+  },
 
   // Global
   // ----------

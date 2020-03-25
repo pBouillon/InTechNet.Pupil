@@ -6,6 +6,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FooterComponent } from './_components/footer/footer.component';
 import { NavbarComponent } from './_components/navbar/navbar.component';
 import { LoginComponent } from './authentication/login/login.component';
+import { ToastrModule } from 'ngx-toastr';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -15,6 +16,13 @@ describe('AppComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
+        ToastrModule.forRoot({
+          maxOpened: 3,
+          preventDuplicates: true,
+          progressBar: true,
+          progressAnimation: 'decreasing',
+          resetTimeoutOnDuplicate: true,
+        }),
       ],
       declarations: [
         AppComponent,

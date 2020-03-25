@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthenticationService } from 'src/app/_services/authentication/authentication.service';
+import { RouteName } from 'src/app/routing/route-name';
 
 @Component({
   selector: 'app-board',
@@ -7,9 +10,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BoardComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router,
+  ) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {  }
 
 }

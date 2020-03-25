@@ -10,6 +10,9 @@ export enum RouteName {
     // Redirect to moderator login
     LOGIN_MODERATOR_EXTERNAL = 'login',
 
+    // Redirect to moderator register
+    REGISTER_MODERATOR_EXTERNAL = 'register',
+
     // Register
     REGISTER = 'register',
 

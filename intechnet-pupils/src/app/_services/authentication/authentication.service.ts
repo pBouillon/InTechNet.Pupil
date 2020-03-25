@@ -5,6 +5,8 @@ import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/_models/entities/pupil/pupil';
 import { LocalStorageKeys } from 'src/app/_models/entities/local-storage/local-storage-keys';
 import { environment } from 'src/environments/environment';
+import { Observable } from 'rxjs';
+import { CredentialsChecks } from 'src/app/_models/entities/credentials-checks/CredentialsChecks';
 
 @Injectable({
   providedIn: 'root'
@@ -35,6 +37,34 @@ export class AuthenticationService {
   }
 
   /**
+   * @summary Check if the email is in use
+   * @param email user's provided login value
+   * @returns a boolean
+   */
+  isEmailInUse(email: string): Observable<CredentialsChecks> {
+    const parameters = new HttpParams()
+      .set('email', email);
+
+    return this.http.get<CredentialsChecks>(
+      `${environment.apiUrl}/Pupils/identifiers-checks`,
+      { params: parameters });
+  }
+
+  /**
+   * @summary Check if the nickname is in use
+   * @param nickname user's provided login value
+   * @returns a boolean
+   */
+  isNickNameInUse(nickname: string): Observable<CredentialsChecks> {
+    const parameters = new HttpParams()
+      .set('nickname', nickname);
+
+    return this.http.get<CredentialsChecks>(
+      `${environment.apiUrl}/Pupils/identifiers-checks`,
+      { params: parameters });
+  }
+
+  /**
    * @summary get the current pupil login state
    * @returns true if connected; false otherwise
    */
@@ -50,7 +80,7 @@ export class AuthenticationService {
    */
   login(login: string, password: string) {
     return this.http.post<any>(
-      `${environment.apiUrl}/Pupil/authenticate`,
+      `${environment.apiUrl}/Pupils/authenticate`,
       { login, password })
       .pipe(
         map(user => {
@@ -70,4 +100,27 @@ export class AuthenticationService {
   logout() {
     this.storageService.clear(LocalStorageKeys.CURRENT_PUPIL);
   }
+
+  /**
+   * @summary given their information, register the moderator and log them in
+   * @param login user's provided login value
+   * @param email user's provided email value
+   * @param password user's provided password value
+   */
+  register(nickname: string, email: string, password: string) {
+    return this.http.post<any>(
+      `${environment.apiUrl}/Pupils`,
+      { nickname, email, password })
+      .pipe(
+        map(user => {
+
+          if (user && user.token) {
+            this.storageService.store(
+              LocalStorageKeys.CURRENT_PUPIL, user);
+          }
+
+          return user;
+      }));
+  }
+
 }

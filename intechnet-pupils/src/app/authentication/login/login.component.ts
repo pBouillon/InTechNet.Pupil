@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
+import { ToastrService } from 'ngx-toastr';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -43,7 +45,7 @@ export class LoginComponent implements OnInit {
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
     private router: Router,
-    // private toastr: ToastrService,
+    private toastr: ToastrService,
   ) { }
   ngOnInit(): void {
     // If the user is already logged in, redirect it
@@ -82,6 +84,9 @@ export class LoginComponent implements OnInit {
           this.router.navigate([`/${RouteName.BOARD}`]);
         },
         (error) => {
+          this.toastr.error(
+            'Une erreur est survenue lors de la connexion au serveur',
+            'Erreur de connexion au serveur');
           this.loginForm.setErrors({ server: error });
         });
   }

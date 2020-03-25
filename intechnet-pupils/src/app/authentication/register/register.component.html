@@ -1,0 +1,186 @@
+<!-- Title section -->
+<div class="container" id="title">
+
+    <!-- Title -->
+    <div class="justify-content-center p-5">
+        <div class="justify-content-center row">
+            <h1 class="title text-center col-12">
+                Inscription <span class="text-success">élève</span>
+            </h1>
+
+            <span class="mt-4 text-center col-12">
+                Pour vous inscrire en tant qu'élève, 
+                <span class="text-success">créez un compte</span> 
+                en saisissant les champs suivants
+            </span>
+        </div>
+    </div>
+    <!-- /Title -->
+</div>
+<!-- /Title section -->
+
+<!-- Form content -->
+<div class="container">
+    <form [formGroup]="registerForm" (ngSubmit)="OnSubmitForm()">
+
+        <!-- Identifier -->
+        <div class="form-group row justify-content-center">
+            <label for="nicknameField"
+                    class="col-sm-3 col-form-label"
+                    [ngClass]="{'text-danger': isFieldInvalid('nickname')}">
+                Identifiant
+            </label>
+            <div class="col-sm-5">
+                <input type="text" 
+                    class="form-control" 
+                    formControlName="nickname" 
+                    id="nicknameField" 
+                    placeholder="Thomas A. Anderson" 
+                    [ngClass]="{'border border-danger': isFieldInvalid('nickname')}"
+                    (blur)="onBlurNickname()"
+                    (focus)="onFocusNickname()"
+                    required />
+
+                <small *ngIf="showNicknameTooltip && !isFieldInvalid('nickname')" class="form-text text-muted">
+                    Cet identifiant sera le nom sous lequel vous apparaîtrez sur la plateforme
+                </small>
+
+                <small *ngIf="isFieldInvalid('nickname')" class="text-danger">
+                    <span *ngIf="f.nickname.errors.required">
+                        Nous avons besoin de votre identifiant pour vous identifier
+                    </span>
+                    <span *ngIf="f.nickname.errors.minlength">
+                        Votre identifiant doit faire au moins 3 caractères
+                    </span>
+                    <span *ngIf="f.nickname.errors.maxlength">
+                        Votre identifiant doit faire moins de 32 caractères
+                    </span>
+                </small>
+
+                <small *ngIf="isNicknameTaken" class="text-danger">                    
+                    Cet identifiant est déjà utilisé
+                </small>
+            </div>
+        </div>
+        <!-- /Identifier -->
+
+        <!-- E-mail -->
+        <div class="form-group row justify-content-center">
+            <label for="emailField"
+                    class="col-sm-3 col-form-label"
+                    [ngClass]="{'text-danger': isFieldInvalid('email')}">
+                E-mail
+            </label>
+            <div class="col-sm-5">
+                <input type="email" 
+                    class="form-control" 
+                    formControlName="email" 
+                    id="emailField" 
+                    placeholder="thomas.a@anderson.me"
+                    [ngClass]="{'border border-danger': isFieldInvalid('email')}"
+                    (blur)="onBlurEmail()"
+                    (focus)="onFocusEmail()"
+                    email required />
+                
+                <small *ngIf="isFieldInvalid('email')" class="text-danger">
+                    <span *ngIf="f.email.errors && f.email.errors.required">
+                        Nous avons besoin de votre email pour vous identifier
+                    </span>
+                </small>
+                
+                <small *ngIf="isFieldInvalid('email')" class="text-danger">
+                    <span *ngIf="f.email.errors && f.email.errors.email">
+                        Veuillez saisir une adresse mail valide
+                    </span>
+                </small>
+
+                <small *ngIf="isEmailTaken" class="text-danger">                    
+                    Cet email est déjà utilisé
+                </small>
+            </div>
+        </div>
+        <!-- /E-mail -->
+
+        <!-- Password -->
+        <div class="form-group row justify-content-center">
+            <label for="passwordField"
+                    class="col-sm-3 col-form-label"
+                    [ngClass]="{'text-danger': isFieldInvalid('password')}">
+                Mot de passe
+            </label>
+            <div class="col-sm-5">
+                <input type="password" 
+                    class="form-control" 
+                    formControlName="password" 
+                    id="passwordField" 
+                    placeholder="Mot de passe" 
+                    [ngClass]="{'border border-danger': isFieldInvalid('password')}"
+                    (blur)="onBlurPassword()"
+                    (focus)="onFocusPassword()"
+                    required />
+                
+                <small *ngIf="showPasswordTooltip" class="form-text text-muted">
+                    Votre mot de passe doit faire 
+                    <span [ngClass]="isPasswordOk('minlength') ? 'text-success' : 'text-danger'">au moins 8 caractères</span>,
+                    <span [ngClass]="isPasswordOk('maxlength') ? 'text-success' : 'text-danger'"> au maximum 64 caractères</span>
+                    et doit contenir au moins 
+                    <span [ngClass]="isPasswordOk('containsUppercase') ? 'text-success' : 'text-danger'">une lettre majuscule</span>, 
+                    <span [ngClass]="isPasswordOk('containsLowercase') ? 'text-success' : 'text-danger'">une lettre minuscule</span> et 
+                    <span [ngClass]="isPasswordOk('containsDigit') ? 'text-success' : 'text-danger'">un chiffre</span>
+                </small>
+            </div>
+        </div>
+        <!-- /Password -->
+
+        <!-- Password verification -->
+        <div class="form-group row justify-content-center">
+            <label for="passwordVerificationField"
+                    class="col-sm-3 col-form-label"
+                    [ngClass]="{ 'text-danger': arePasswordsMismatched() }">
+                Confirmation du mot de passe
+            </label>
+            <div class="col-sm-5">
+                <input type="password" 
+                    class="form-control" 
+                    formControlName="passwordVerification" 
+                    id="passwordVerificationField" 
+                    placeholder="Confirmation" 
+                    [ngClass]="{'border border-danger': arePasswordsMismatched()}"
+                    required />
+
+                <small *ngIf="arePasswordsMismatched()" class="text-danger">
+                    Les mots de passe ne correspondent pas
+                </small>
+                
+                
+            </div>
+        </div>
+        <!-- /Password verification -->
+
+        <!-- Form buttons -->
+        <div class="form-group row justify-content-center">
+            <button type="submit" 
+                    class="order-lg-2 mr-lg-2 mr-md-5 mx-4 mt-4 mb-2 col-sm-1 col-md-5 col-lg-3 btn btn-success" 
+                    [disabled]="!registerForm.valid">
+                Créer mon compte
+            </button>
+        </div>
+        <!-- /Form buttons -->
+
+        <!-- Registration link -->
+        <div class="mt-1 text-center">
+            Déjà inscrit ? <a [routerLink]="loginLink" class="text-success">Connectez-vous !</a>
+        </div>
+        <!-- /Registration link -->
+
+        <!-- Moderator registration link -->
+        <div class="row mt-1">
+            <small class="m-auto text-center text-muted">
+                Vous êtes modérateur ? <a [href]="registerLink" class="text-success">Inscrivez-vous ici !</a>
+            </small>
+        </div>
+        <!-- /Moderator registration link -->
+
+    </form>
+</div>
+<!-- /Form content -->
