@@ -19,6 +19,10 @@ export enum RouteName {
     // Profil
     BOARD = 'board',
 
+    // Hubs
+    HUBS = 'Hubs',
+    JOIN = 'join',
+
     // Contact
     CONTACT_EXTERNAL =  'contact',
 

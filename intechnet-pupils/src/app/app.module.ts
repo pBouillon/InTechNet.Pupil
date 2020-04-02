@@ -10,11 +10,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './authentication/login/login.component';
 import { FooterComponent } from './_components/footer/footer.component';
 import { NavbarComponent } from './_components/navbar/navbar.component';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { BoardModule } from './board/board.module';
+import { JwtInterceptor } from './_interceptors/jwt.interceptor';
+import { HubsModule } from './hubs/hubs.module';
 
 @NgModule({
   declarations: [
@@ -31,6 +34,10 @@ import { environment } from '../environments/environment';
     FormsModule,
     HttpClientModule,
     ReactiveFormsModule,
+    HubsModule,
+
+    // InTechNet imports
+    BoardModule,
 
     // Toastr imports
     BrowserAnimationsModule,
@@ -43,7 +50,9 @@ import { environment } from '../environments/environment';
     }),
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
-  providers: [],
+  providers: [
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

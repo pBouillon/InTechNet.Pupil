@@ -1,1 +1,95 @@
-<p>board works!</p>
+<!-- Page title section -->
+<div class="container" id="title">
+
+    <div class="d-flex justify-content-center p-5 text-center">
+        <h1 class="title">
+            Votre <span class="text-success">tableau de bord</span>
+        </h1>
+    </div>
+
+</div>
+<!-- /Page title section -->
+
+<!-- Hubs section -->
+<div class="container mb-2">
+
+    <!-- Section title -->
+    <div class="row justify-content-md-between mb-1">
+        <h3 class="col-6 col-md-4 text-left pt-1">
+            Vos <span class=text-success>hubs</span>
+        </h3>
+
+        <div class="col-6 col-md-4 text-center text-md-right mt-0">
+            <button id="openHubJoinModal"
+                    class="btn btn-success btn-xs-block small-padding"
+                    data-toggle="modal"
+                    data-target="#hubJoinModal">
+                Rejoindre un hub
+            </button>
+        </div>
+    </div>
+
+    <hr />
+    <!-- Section title -->
+
+    <!-- Hubs display section -->
+    <div *ngIf="pupilHubs.length > 0; else noHubsView">
+
+        <app-hub-widget *ngFor="let hub of pupilHubs"
+            [pupilHub]="hub">
+        </app-hub-widget>
+
+    </div>
+
+    <ng-template #noHubsView>
+        <div class="container d-flex flex-column text-center">
+            <p class="text-muted mb-3">
+                Vous n'avez aucun hub pour le moment
+            </p>
+        </div>
+    </ng-template>
+    <!-- /Hubs display section -->
+</div>
+<!-- /Hubs section -->
+
+<!-- Hub join modal -->
+<div class="modal fade" id="hubJoinModal" tabindex="-1" role="dialog" aria-labelledby="hubJoinModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hubDeletionModalLabel">Rejoindre un hub</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <form [formGroup]="hubJoinForm" (ngSubmit)="onJoinHub()">
+                
+                <div class="modal-body justify-content-center row">
+                    <label for="inputJoinHub" class="col-12">
+                        Saisissiez votre <span class="text-success">lien d'invitation au hub</span>
+                    </label>
+                    <input id="inputJoinHub"
+                            formControlName="inputJoinHub"
+                            type="text"
+                            class="col-10 form-control"
+                            placeholder="Lien de partage"
+                            autocomplete="off"
+                            required />
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" id="closeHubJoinModal" class="btn btn-outline-secondary"
+                        data-dismiss="modal">Annuler</button>
+                    <input type="submit"
+                            class="btn btn-success"
+                            [disabled]="!hubJoinForm.valid"
+                            value="Rejoindre">
+                </div>                
+            </form>
+
+        </div>
+    </div>
+</div>
+<!-- /Hub join modal -->

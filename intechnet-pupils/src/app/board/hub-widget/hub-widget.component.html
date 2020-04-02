@@ -1,0 +1,39 @@
+<!-- Widget wrapper -->
+<div class="card mb-3 col-12">
+
+    <!-- Widget header -->
+    <div class="card-header row justify-content-between">
+        <div class="col-10 px-0">
+            <span>                                
+                <h5>{{ pupilHub.name }}</h5>                
+                <span class="hub-moderator mr-2">[ <span class="text-success">{{ pupilHub.moderatorNickname }}</span> ]</span>
+            
+            </span>
+        </div>
+    </div>
+    <!-- /Widget header -->
+
+    <!-- Widget content -->
+    <div class="card-body">        
+        <p *ngIf="pupilHub.description; else noDescriptionText"
+            class="card-text mb-3">
+            {{ pupilHub.description }}
+        </p>
+
+        <ng-template #noDescriptionText>
+            <p class="card-text mb-3 font-weight-light text-muted">
+                Aucune description fournie pour ce hub
+            </p>
+        </ng-template>
+
+        <div>
+            <button class="btn btn-outline-success">
+                Accéder aux modules
+            </button>            
+        </div>
+
+    </div>
+    <!-- /Widget content -->
+
+</div>
+<!-- /Widget wrapper -->

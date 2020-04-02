@@ -8,7 +8,7 @@ import { RouteName } from 'src/app/routing/route-name';
   providedIn: 'root'
 })
 export class AuthenticationGuard implements CanActivate {
-  
+
   /**
    * Default constructor
    * @param authenticationService authentication service
@@ -38,5 +38,5 @@ export class AuthenticationGuard implements CanActivate {
     this.router.navigate([`/${RouteName.LOGIN}`], { queryParams: { returnUrl: state.url } });
     return false;
   }
-  
+
 }

@@ -6,6 +6,7 @@ import { BoardComponent } from './board/board/board.component';
 import { PageNotFoundComponent } from './error/page-not-found/page-not-found.component';
 import { RegisterComponent } from './authentication/register/register.component';
 import { AuthenticationGuard } from './_guards/authentication-guard/authentication.guard';
+import { HubJoinComponent } from './hubs/hub-join/hub-join.component';
 
 const routes: Routes = [
   // Authentication
@@ -23,6 +24,16 @@ const routes: Routes = [
     path: RouteName.BOARD,
     component: BoardComponent,
     canActivate: [ AuthenticationGuard ]
+  },
+
+  // ----------
+  // Hubs
+  {
+    path: `${RouteName.HUBS}/${RouteName.JOIN}`,
+    component: HubJoinComponent,
+    canActivate: [
+      AuthenticationGuard,
+    ]
   },
 
   // Global
