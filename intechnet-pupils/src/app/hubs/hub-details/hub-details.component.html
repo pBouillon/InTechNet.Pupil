@@ -12,7 +12,7 @@
                 id="openHubLeavingModal"
                 data-toggle="modal"
                 data-target="#hubLeavingModal">
-            <i data-feather="trash-2" class="mr-1"></i>
+            <i data-feather="user-x" class="mr-1"></i>
             Quitter
         </button>
     </div>
@@ -36,16 +36,16 @@
 <div class="container">
 
     <h3><span class="text-success">Modules</span> disponibles</h3>
-    
     <hr />
 
 </div>
-
 <!-- /Sub-title -->
 
 <!-- Modules -->
 <div class="container">
-    <h1 class="text-warning">WiP</h1>
+    <app-module-list
+        [availableModules]="availableModules">
+    </app-module-list>
 </div>
 <!-- /Modules -->
 

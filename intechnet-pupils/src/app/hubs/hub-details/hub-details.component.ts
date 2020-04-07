@@ -5,6 +5,8 @@ import { HttpErrorResponse } from '@angular/common/http';
 
 import { Hub } from 'src/app/_models/entities/hub/hub';
 import { HubService } from 'src/app/_services/hub/hub.service';
+import { Module } from 'src/app/_models/entities/module/module';
+import { ModuleService } from 'src/app/_services/module/module.service';
 import { RouteName } from 'src/app/routing/route-name';
 
 import * as feather from 'feather-icons';
@@ -20,6 +22,11 @@ import * as feather from 'feather-icons';
 export class HubDetailsComponent implements OnInit, AfterViewInit {
 
   /**
+   * @summary array of all available modules
+   */
+  public availableModules: Array<Module> = [];
+
+  /**
    * @summary Data of the current hub to be displayed
    */
   public hub: Hub;
@@ -29,6 +36,7 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
    */
   constructor(
     private hubService: HubService,
+    private moduleService: ModuleService,
     private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
@@ -47,6 +55,9 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
       // Retrieve the current hub's data
       this.retrieveHubData();
     });
+
+    // Retrieve the associated modules
+    this.retrieveHubModules();
   }
 
   /**
@@ -101,6 +112,20 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
             'Erreur de connexion au serveur'
           );
         },
+      );
+  }
+
+  private retrieveHubModules(): void {
+    this.moduleService.getAvailableModulesForHub(this.hub.id)
+      .subscribe(
+        (modules: Array<Module>) => {
+          this.availableModules = modules;
+        },
+        (_: HttpErrorResponse) => {
+          this.toastr.error(
+            'Impossible de récupérer les modules de ce hub',
+            'Erreur de communication avec le serveur');
+        }
       );
   }
 

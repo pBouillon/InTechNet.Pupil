@@ -1,0 +1,43 @@
+<!-- Module list -->
+<div *ngIf="availableModules.length > 0; else noModules">
+
+    <!-- Selection subtitle -->
+    <h6 class="mb-2">
+        Pour commencer,
+        <span class="text-success">choisi un module</span>
+        parmi ceux ci-dessous :
+    </h6>
+    <!-- /Selection subtitle -->
+
+    <!-- Module cards listing -->
+    <div *ngFor="let modulesGroup of toGroupedModules(availableModules); let lineNb = index"
+        class="card-deck my-3 text-center">
+    
+        <!-- Module card deck -->
+        <div *ngFor="let module of modulesGroup; let colNb = index" class="card mb-3">
+    
+            <!-- Module card -->
+            <div (click)="onModuleCardClick(module)" class="card-body cursor-pointer">
+                <h5 class="card-title text-success">
+                    {{ module.name }}
+                </h5>
+                <p class="card-text text-justify">
+                    {{ module.description }}
+                </p>
+            </div>
+            <!-- /Module card -->
+    
+        </div>
+        <!-- /Module card deck -->
+    
+    </div>
+    <!-- /Module cards listing -->
+
+</div>
+<!-- /Module list -->
+
+<!-- No module selected view -->
+<ng-template #noModules>
+    <h5 class="text-muted text-center">Aucun module n'est disponible pour ce hub</h5>
+</ng-template>
+<!-- /No module selected view-->
