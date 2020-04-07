@@ -1,0 +1,75 @@
+<!-- Title section -->
+<div class="container" id="title">
+
+    <div class="d-flex justify-content-between">
+        <button class="btn btn-outline-success" (click)="onBack()">
+            <i data-feather="arrow-left" class="mr-1"></i>
+            Retour
+        </button>
+
+        <button class="btn btn-outline-danger"
+                type="button"
+                id="openHubLeavingModal"
+                data-toggle="modal"
+                data-target="#hubLeavingModal">
+            <i data-feather="trash-2" class="mr-1"></i>
+            Quitter
+        </button>
+    </div>
+
+    <!-- Title -->
+    <div class="d-flex justify-content-center p-5 pt-2 text-center">
+        <div *ngIf="hub.name; else loadingName">
+            <h1 class="title text-success wb-all">{{ hub.name }}</h1>
+        </div>
+        <ng-template #loadingName>
+            <h1 class="title text-success wb-all">...</h1>
+        </ng-template>
+
+    </div>
+    <!-- /Title -->
+
+</div>
+<!-- /Title section -->
+
+<!-- Sub-title -->
+<div class="container">
+
+    <h3><span class="text-success">Modules</span> disponibles</h3>
+    
+    <hr />
+
+</div>
+
+<!-- /Sub-title -->
+
+<!-- Modules -->
+<div class="container">
+    <h1 class="text-warning">WiP</h1>
+</div>
+<!-- /Modules -->
+
+<!-- Hub leaving modal -->
+<div class="modal fade" id="hubLeavingModal" tabindex="-1" role="dialog" aria-labelledby="hubLeavingModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="hubLeavingModalLabel">Suppression du hub</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Êtes vous certain de vouloir <span class="text-danger">quitter ce hub ?</span>
+                Vous ne pourrez plus y accéder <span class="text-danger">sans le lien d'invitation</span>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeHubLeavingModal" class="btn btn-outline-secondary"
+                    data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="onHubLeaving()">Quitter le hub</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Hub leaving modal -->

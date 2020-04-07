@@ -13,14 +13,17 @@ export class NavbarComponent implements OnInit {
 
   public contactLinkRoute = `${environment.moderatorFrontUrl}/${RouteName.CONTACT_EXTERNAL}`;
 
-  public homepageLinkRoute = `/${RouteName.HOMEPAGE}`;
+  public homepageLinkRoute = `/${RouteName.BOARD}`;
 
   public loginLinkRoute = `/${RouteName.LOGIN}`;
 
-  public profilLinkRoute = `/${RouteName.BOARD}`;
+  public profileLinkRoute = `/${RouteName.BOARD}`;
 
   public registerLinkRoute = `/${RouteName.REGISTER}`;
 
+  /**
+   * @summary default constructor
+   */
   constructor(
     public authenticationService: AuthenticationService,
     private router: Router
@@ -28,15 +31,21 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {  }
 
+  /**
+   * @summary disconnect the user
+   */
   disconnect(): void {
     this.authenticationService.logout();
-    this.router.navigate([`/${RouteName.HOMEPAGE}`]);
+    this.router.navigate([`/${RouteName.LOGIN}`]);
   }
 
+  /**
+   * @summary redirect the user to its homepage
+   */
   goHome(): void {
     this.authenticationService.isPupilLoggedIn
       ? this.router.navigate([`/${RouteName.BOARD}`])
-      : this.router.navigate([`/${RouteName.HOMEPAGE}`]);
+      : this.router.navigate([`/${RouteName.LOGIN}`]);
   }
 
 }
