@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { LocalStorageService } from '../local-storage/local-storage.service';
 import { map } from 'rxjs/operators';
 import { Pupil } from 'src/app/_models/entities/pupil/pupil';

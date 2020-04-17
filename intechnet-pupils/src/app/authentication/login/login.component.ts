@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { RouteName } from 'src/app/routing/route-name';
 import { AuthenticationService } from 'src/app/_services/authentication/authentication.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { environment } from 'src/environments/environment';
 
 import { ToastrService } from 'ngx-toastr';
@@ -29,29 +29,40 @@ export class LoginComponent implements OnInit {
    */
   public loginLinkModerator = `${environment.moderatorFrontUrl}${RouteName.LOGIN_MODERATOR_EXTERNAL}`;
 
-    /**
-     * @summary link to the registration page
-     */
+  /**
+   * @summary link to the registration page
+   */
   public registerLink = `/${RouteName.REGISTER}`;
+
+  /**
+   * @summary The url to return to if the login succeeds
+   */
+  private returnUrl: string;
 
   /**
    * @summary default constructor
    * @param authenticationService authentication service
    * @param formBuilder form builder service
+   * @param route angular route
    * @param router angular router
    * @param toastr toastr service
    */
   constructor(
     private authenticationService: AuthenticationService,
     private formBuilder: FormBuilder,
+    private route: ActivatedRoute,
     private router: Router,
     private toastr: ToastrService,
   ) { }
+
   ngOnInit(): void {
     // If the user is already logged in, redirect it
     if (this.authenticationService.isPupilLoggedIn) {
       this.router.navigate([`/${RouteName.BOARD}`]);
     }
+
+    // Set the return url to the param value
+    this.returnUrl = this.route.snapshot.queryParams.returnUrl || '/';
 
     // Form creation
     this.createForm();
@@ -81,7 +92,7 @@ export class LoginComponent implements OnInit {
       .login(this.f.login.value, this.f.password.value)
       .subscribe(
         () => {
-          this.router.navigate([`/${RouteName.BOARD}`]);
+          this.router.navigateByUrl(this.returnUrl);
         },
         (error) => {
           this.toastr.error(

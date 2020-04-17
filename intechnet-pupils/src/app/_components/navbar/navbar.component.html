@@ -10,13 +10,9 @@
     <!-- Main navigation -->
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <!-- Authenticated pupil -->
-        <ul *ngIf="authenticationService.isPupilLoggedIn; else guestNavigation"
-            class="navbar-nav mr-auto">
-            <li class="nav-item itn-nav-item mr-3">
-                <a class="nav-link" [routerLink]="profileLinkRoute">Board</a>
-            </li>
-            <li class="nav-item itn-nav-item mr-3">
-                <a class="nav-link" [href]="contactLinkRoute">Contact</a> 
+        <ul *ngIf="authenticationService.isPupilLoggedIn; else guestNavigation" class="navbar-nav mr-auto">
+            <li class="nav-item itn-nav-item mr-3" data-toggle="collapse" data-target=".navbar-collapse.show">
+                <a class="nav-link" [routerLink]="homepageLinkRoute">Tableau de bord</a>
             </li>
         </ul>
         <!-- /Authenticated pupil -->
@@ -24,11 +20,8 @@
         <!-- Guest -->
         <ng-template #guestNavigation>
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item itn-nav-item mr-3">
+                <li class="nav-item itn-nav-item mr-3" data-toggle="collapse" data-target=".navbar-collapse.show">
                     <a class="nav-link" [routerLink]="homepageLinkRoute">Accueil</a>
-                </li>
-                <li class="nav-item itn-nav-item mr-3">
-                    <a class="nav-link" [href]="contactLinkRoute">Contact</a>
                 </li>
             </ul>
         </ng-template>
@@ -37,9 +30,8 @@
 
     <!-- Authentication section -->
         <!-- Authenticated pupil -->
-        <ul *ngIf="authenticationService.isPupilLoggedIn; else guestAuthentication"
-            class="navbar-nav mr-0">
-            <li class="nav-item itn-nav-item">
+        <ul *ngIf="authenticationService.isPupilLoggedIn; else guestAuthentication" class="navbar-nav mr-0">
+            <li class="nav-item itn-nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                 <a class="nav-link" [routerLink]="" (click)="disconnect()">Se déconnecter</a>
             </li>
         </ul>
@@ -48,10 +40,10 @@
         <!-- Guest -->
         <ng-template #guestAuthentication>
             <ul class="navbar-nav mr-0">
-                <li class="nav-item itn-nav-item">
+                <li class="nav-item itn-nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                     <a class="nav-link" [routerLink]="registerLinkRoute">S'inscrire</a>
                 </li>
-                <li class="nav-item itn-nav-item">
+                <li class="nav-item itn-nav-item" data-toggle="collapse" data-target=".navbar-collapse.show">
                     <a class="nav-link" [routerLink]="loginLinkRoute">Se connecter</a>
                 </li>
             </ul>

@@ -32,22 +32,71 @@
 </div>
 <!-- /Title section -->
 
-<!-- Sub-title -->
+<!-- Resume current module -->
+<div *ngIf="currentModule" class="container my-4">
+    <h3>Reprendre le <span class="text-success">module en cours</span></h3>
+
+    <hr />
+
+    <!-- Module card -->
+    <div class="card mx-auto col-md-5">
+        <div (click)="onResumeModuleRequest()" class="card-body cursor-pointer">
+            <h5 class="card-title text-success">
+                {{ currentModule.name }}
+            </h5>
+            <p class="card-text text-justify">
+                {{ currentModule.description }}
+            </p>
+        </div>
+    </div>
+    <!-- /Module card -->
+
+</div>
+<!-- /Resume current module -->
+
+<!-- Modules list -->
 <div class="container">
 
     <h3><span class="text-success">Modules</span> disponibles</h3>
+
     <hr />
 
-</div>
-<!-- /Sub-title -->
-
-<!-- Modules -->
-<div class="container">
     <app-module-list
-        [availableModules]="availableModules">
+        [availableModules]="availableModules"
+        [enabled]="!currentModule"
+        (selectedModule)="onModuleStartRequest($event)">
     </app-module-list>
 </div>
-<!-- /Modules -->
+<!-- /Modules list -->
+
+<!-- Module start modal -->
+<button id="openModuleStartModal" [hidden]="true" type="button" class="btn btn-primary" data-toggle="modal"
+    data-target="#moduleStartModal">
+</button>
+
+<div class="modal fade" id="moduleStartModal" tabindex="-1" role="dialog"
+        aria-labelledby="moduleStartModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="moduleStartModalLabel">Commencer le module</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Lancer le module <span class="text-success">"{{ selectedModule.name }}"</span> ? <br />
+                Chaque module dure <span class="text-success">environ 15mn</span> et <span class="text-success">peut être arrêté</span> n'importe quand.
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeModuleStartModal" class="btn btn-outline-secondary"
+                    data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" (click)="onModuleStart()">Lancer le module</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Module start modal -->
 
 <!-- Hub leaving modal -->
 <div class="modal fade" id="hubLeavingModal" tabindex="-1" role="dialog" aria-labelledby="hubLeavingModalLabel"

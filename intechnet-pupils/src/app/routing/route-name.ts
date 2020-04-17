@@ -17,9 +17,13 @@ export enum RouteName {
     BOARD = 'board',
 
     // Pupil hub management
-    HUB_DETAILS = 'hubs/details/:id',
-    HUBS = 'Hubs',
+    HUB_DETAILS = ':idHub',
+    HUBS = 'hubs',
     JOIN = 'join',
+
+    // Module
+    MODULES = 'modules',
+    MODULE_DETAILS = ':idModule',
 
     // Global / Homepage
     ROOT = ''

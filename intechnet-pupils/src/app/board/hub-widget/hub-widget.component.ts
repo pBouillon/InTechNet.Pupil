@@ -32,9 +32,9 @@ export class HubWidgetComponent implements OnInit, AfterViewInit {
    * @summary Redirect the user to the hub details board associated to its hub
    */
   public onHubDetails(): void {
-    const hubDetailsLink = RouteName.HUB_DETAILS
+    const hubDetailsLink = `${RouteName.HUBS}/${RouteName.HUB_DETAILS}`
       .replace(
-        ':id',
+        RouteName.HUB_DETAILS,
         this.pupilHub.id.toString());
 
     this.router.navigate([hubDetailsLink]);

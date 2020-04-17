@@ -8,6 +8,8 @@ import { RegisterComponent } from './authentication/register/register.component'
 import { AuthenticationGuard } from './_guards/authentication-guard/authentication.guard';
 import { HubJoinComponent } from './hubs/hub-join/hub-join.component';
 import { HubDetailsComponent } from './hubs/hub-details/hub-details.component';
+import { ModulePlayComponent } from './module/module-play/module-play.component';
+import { ModulePlayGuard } from './_guards/module-play/module-play.guard';
 
 const routes: Routes = [
   // Authentication
@@ -29,17 +31,31 @@ const routes: Routes = [
 
   // Hubs management
   // ----------
-  // Hub board
   {
-    path: `${RouteName.HUBS}/${RouteName.JOIN}`,
-    component: HubJoinComponent,
-    canActivate: [ AuthenticationGuard ]
-  },
-  // Hub details
-  {
-    path: RouteName.HUB_DETAILS,
-    component: HubDetailsComponent,
-    canActivate: [AuthenticationGuard]
+    path: `${RouteName.HUBS}`,
+    canActivate: [ AuthenticationGuard ],
+    // Children routes relative to hub content
+    children: [
+      // Hub board
+      { path: '', component: HubJoinComponent },
+      // Hub join
+      { path: RouteName.JOIN, component: HubJoinComponent },
+      // Hub details
+      {
+        path: RouteName.HUB_DETAILS,
+        // Children routes relative to hub details and modules
+        children: [
+          // Details of the hub
+          { path: '', component: HubDetailsComponent },
+          // Play a module of a hub
+          {
+            path: `${RouteName.MODULES}/${RouteName.MODULE_DETAILS}`,
+            component: ModulePlayComponent,
+            canActivate: [ ModulePlayGuard ],
+          },
+        ],
+      },
+    ],
   },
 
   // Global

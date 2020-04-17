@@ -1,0 +1,102 @@
+<!-- Module page header -->
+<div class="container">
+
+    <div class="row justify-content-md-between">
+
+        <!-- Module Title -->
+        <div class="col-12 col-md-5 mb-2 mb-md-0 text-center text-md-left">
+            <h5>{{ module.name }}</h5>
+        </div>
+        <!-- /Module Title -->
+        
+        <!-- Buttons -->
+        <div class="row col-12 col-md-6 col-lg-4 justify-content-center justify-content-md-right">
+            <!-- Go to hub button -->
+                <button class="btn btn-sm btn-outline-success mr-2"
+                    id="openLeaveModuleModal"
+                    data-toggle="modal"
+                    data-target="#leaveModuleModal">
+                    <i data-feather="arrow-left" class="mr-1"></i>
+                    Retour
+                </button>
+            <!-- /Go to hub button -->
+            
+            <!-- Abort module -->
+                <button class="btn btn-sm btn-outline-danger"
+                    id="openAbortModuleModal"
+                    data-toggle="modal"
+                    data-target="#abortModuleModal">
+                    <i data-feather="x-octagon" class="mr-1"></i>
+                    Abandonner
+                </button>
+            <!-- /Abort module -->
+
+        </div>
+        <!-- /Buttons -->
+
+    </div>
+
+    <hr/>
+
+</div>
+<!-- /Module page header -->
+
+<!-- Current resource -->
+<div class="container mt-3">
+    
+    <!-- Display resource -->
+    <div id="resource-content" [innerHTML]="resource.content | safeHtml" appRunScript></div>
+    <!-- /Display resource -->
+
+</div>
+<!-- /Current resource -->
+
+<!-- Leave module modal -->
+<div class="modal fade" id="leaveModuleModal" tabindex="-1" role="dialog" aria-labelledby="leaveModuleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="leaveModuleModalLabel">Retourner au hub</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Voulez-vous retourner à la page du hub ? <br/>
+                <span class="text-success">Vous pourrez reprendre le module</span> là où vous en êtes actuellement.
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeLeaveModuleModal" class="btn btn-outline-secondary"
+                    data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-success" (click)="onBackRequest()">Retourner au hub</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Leave module modal -->
+
+<!-- Abort module modal -->
+<div class="modal fade" id="abortModuleModal" tabindex="-1" role="dialog" aria-labelledby="abortModuleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="abortModuleModalLabel">Abandonner le module</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Êtes vous certain de vouloir <span class="text-danger">abandonner le module en cours</span> ?
+                En le recommençant, <span class="text-danger">vous devrez le reprendre depuis le début</span>.
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="closeAbortModuleModal" class="btn btn-outline-secondary"
+                    data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="onGiveUpRequest()">Abandonner</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Abort module modal -->

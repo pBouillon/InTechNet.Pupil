@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -19,7 +19,7 @@ import * as feather from 'feather-icons';
   templateUrl: './hub-details.component.html',
   styleUrls: ['./hub-details.component.scss']
 })
-export class HubDetailsComponent implements OnInit, AfterViewInit {
+export class HubDetailsComponent implements OnInit, OnDestroy, AfterViewInit {
 
   /**
    * @summary array of all available modules
@@ -27,9 +27,29 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
   public availableModules: Array<Module> = [];
 
   /**
+   * @summary retrieve the current module if any
+   */
+  public currentModule: Module;
+
+  /**
    * @summary Data of the current hub to be displayed
    */
   public hub: Hub;
+
+  /**
+   * @summary delay between each refresh in ms
+   */
+  private refreshInterval = 3_000;
+
+  /**
+   * @summary timeout for content refresh
+   */
+  private refreshTimeout;
+
+  /**
+   * @summary module selected by the user
+   */
+  public selectedModule: Module;
 
   /**
    * @summary default constructor
@@ -50,13 +70,35 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
     // Retrieve the ID of the current route
     this.route.paramMap.subscribe(_ => {
       this.hub = new Hub();
-      this.hub.id = +_.get('id');
+      this.hub.id = +_.get('idHub');
 
       // Retrieve the current hub's data
       this.retrieveHubData();
     });
 
+    // Initialize the displayed module object
+    this.selectedModule = new Module();
+
     // Retrieve the associated modules
+    this.retrieveHubModules();
+
+    // Activate the refresh timer
+    this.refreshTimeout = setInterval(() =>
+      this.refreshModuleCards(),
+      this.refreshInterval);
+  }
+
+  /**
+   * @summary clear refresh timeout
+   */
+  ngOnDestroy(): void {
+    clearInterval(this.refreshTimeout);
+  }
+
+  /**
+   * @summary refresh the module cards
+   */
+  private refreshModuleCards(): void {
     this.retrieveHubModules();
   }
 
@@ -80,7 +122,7 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
         () => {
           // Inform of the success of this operation
           this.toastr.success(
-            `Vous avez bien quitté le hub "${this.hub.name}"`,
+            `Vous avez bien quitté le hub '${this.hub.name}'`,
             'Hub quitté ');
 
           // Redirect the user to its board
@@ -92,6 +134,67 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
             'Erreur de communication avec le serveur');
         },
       );
+  }
+
+  /**
+   * @summary resume the current module
+   */
+  public onResumeModuleRequest(): void {
+    if (!this.currentModule) {
+      this.toastr.error('Vous n\'avez aucun module à continuer');
+      return;
+    }
+
+    const modulePlayLink = `${RouteName.MODULES}/${RouteName.MODULE_DETAILS}`
+      .replace(
+        RouteName.MODULE_DETAILS,
+        this.currentModule.id.toString());
+
+    this.router.navigate([modulePlayLink], { relativeTo: this.route });
+  }
+
+  /**
+   * @summary start the module
+   */
+  public async onModuleStart() {
+    // Assert the user can start a new module
+    if (this.currentModule) {
+      this.toastr.error(
+        'Vous avez déjà un module en cours dans ce hub',
+        'Impossible de commencer le module'
+      );
+      return;
+    }
+
+    // Close the module start modal
+    document.getElementById('closeModuleStartModal').click();
+
+    // Start the module
+    this.moduleService
+      .startModule(this.hub.id, this.selectedModule.id)
+      .subscribe(
+        // On module start successful, redirect the user to its first resource
+        () => {
+          // Redirect the user to the selected module
+          const modulePlayLink = `${RouteName.MODULES}/${RouteName.MODULE_DETAILS}`.replace(
+            RouteName.MODULE_DETAILS,
+            this.selectedModule.id.toString()
+          );
+
+          this.router.navigate([modulePlayLink], { relativeTo: this.route });
+        },
+        // On failure, notify the user
+        (_: HttpErrorResponse) =>
+          this.toastr.error('Impossible de lancer ce module')
+      );
+  }
+
+  /**
+   * @summary catch the module start request and open confirmation
+   */
+  public onModuleStartRequest(module: Module): void {
+    this.selectedModule = module;
+    document.getElementById('openModuleStartModal').click();
   }
 
   /**
@@ -115,11 +218,16 @@ export class HubDetailsComponent implements OnInit, AfterViewInit {
       );
   }
 
+  /**
+   * @summary retrieve all modules allowed for the current pupil
+   *          and assign them to the `availableModules` property
+   */
   private retrieveHubModules(): void {
     this.moduleService.getAvailableModulesForHub(this.hub.id)
       .subscribe(
         (modules: Array<Module>) => {
           this.availableModules = modules;
+          this.currentModule = this.availableModules.filter(_ => _.isOnGoing)[0];
         },
         (_: HttpErrorResponse) => {
           this.toastr.error(

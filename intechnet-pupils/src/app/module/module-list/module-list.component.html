@@ -2,11 +2,18 @@
 <div *ngIf="availableModules.length > 0; else noModules">
 
     <!-- Selection subtitle -->
-    <h6 class="mb-2">
+    <h6 *ngIf="enabled; else notEnabled" class="mb-2">
         Pour commencer,
-        <span class="text-success">choisi un module</span>
-        parmi ceux ci-dessous :
+        <span class="text-success">choisis un module</span>
+        parmi ceux ci-dessous
     </h6>
+
+    <ng-template #notEnabled>
+        <h6 class="mb-2">
+            Vous devez finir le <span class="text-success">module en cours</span>
+            pour pouvoir en sélectionner un nouveau
+        </h6>
+    </ng-template>
     <!-- /Selection subtitle -->
 
     <!-- Module cards listing -->
@@ -17,11 +24,14 @@
         <div *ngFor="let module of modulesGroup; let colNb = index" class="card mb-3">
     
             <!-- Module card -->
-            <div (click)="onModuleCardClick(module)" class="card-body cursor-pointer">
-                <h5 class="card-title text-success">
+            <div (click)="onModuleCardClick(module)" class="card-body"
+                [ngClass]="enabled ? 'cursor-pointer' : 'cursor-default card-disabled'">
+                <h5 class="card-title"
+                    [ngClass]="enabled ? 'text-success' : 'text-muted cursor-default'">
                     {{ module.name }}
                 </h5>
-                <p class="card-text text-justify">
+                <p class="card-text text-justify"
+                    [ngClass]="{ 'text-muted cursor-default' : !enabled }">
                     {{ module.description }}
                 </p>
             </div>

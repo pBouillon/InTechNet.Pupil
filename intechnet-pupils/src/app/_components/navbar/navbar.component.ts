@@ -11,13 +11,9 @@ import { environment } from 'src/environments/environment';
 })
 export class NavbarComponent implements OnInit {
 
-  public contactLinkRoute = `${environment.moderatorFrontUrl}/${RouteName.CONTACT_EXTERNAL}`;
-
   public homepageLinkRoute = `/${RouteName.BOARD}`;
 
   public loginLinkRoute = `/${RouteName.LOGIN}`;
-
-  public profileLinkRoute = `/${RouteName.BOARD}`;
 
   public registerLinkRoute = `/${RouteName.REGISTER}`;
 

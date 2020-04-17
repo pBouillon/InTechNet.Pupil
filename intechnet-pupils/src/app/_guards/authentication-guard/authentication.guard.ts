@@ -25,7 +25,7 @@ export class AuthenticationGuard implements CanActivate {
    * @param state route state
    */
   canActivate(
-    next: ActivatedRouteSnapshot,
+    _: ActivatedRouteSnapshot,
     state: RouterStateSnapshot)
   : Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     // If the user is logged in, allow him to reach its destination
