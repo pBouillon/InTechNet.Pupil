@@ -83,6 +83,14 @@ export class RegisterComponent implements OnInit {
   }
 
   /**
+   * @summary check if any credential is in use
+   * @returns true if either the email or the nickname is already taken
+   */
+  areIdentifiersInUse(): boolean {
+    return this.isEmailTaken || this.isNicknameTaken;
+  }
+
+  /**
    * @summary check if the password verification field is OK
    */
   arePasswordsMismatched() {
