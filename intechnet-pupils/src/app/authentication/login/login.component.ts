@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   /**
    * @summary link to the registration page for moderators
    */
-  public loginLinkModerator = `${environment.moderatorFrontUrl}${RouteName.LOGIN_MODERATOR_EXTERNAL}`;
+  public loginLinkModerator = `${environment.moderatorFrontUrl}/${RouteName.LOGIN_MODERATOR_EXTERNAL}`;
 
   /**
    * @summary link to the registration page

@@ -1,3 +1,4 @@
+import { environment } from 'src/environments/environment';
 import { Component, OnInit } from '@angular/core';
 import { RouteName } from 'src/app/routing/route-name';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -43,7 +44,7 @@ export class RegisterComponent implements OnInit {
   /**
    * @summary link to the moderator login page
    */
-  public registerLink = `/${RouteName.REGISTER_MODERATOR_EXTERNAL}`;
+  public registerLink = `${environment.moderatorFrontUrl}/${RouteName.REGISTER_MODERATOR_EXTERNAL}`;
 
   /**
    * @summary register form
