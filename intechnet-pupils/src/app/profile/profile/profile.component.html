@@ -1,0 +1,173 @@
+<!-- Title section -->
+<div class="container" id="title">
+
+    <!-- Title -->
+    <div class="d-flex justify-content-center p-5">
+        <div>
+            <h1 class="title">Votre <span class=text-success>profil</span></h1>
+        </div>
+    </div>
+    <!-- /Title -->
+
+</div>
+<!-- /Title section -->
+
+<!-- Account summary -->
+<div class="container mb-2">
+
+    <h3 class="mb-5">
+        <i data-feather="hash" class="mr-1"></i>
+        Votre <span class=text-success>compte</span>
+    </h3>
+
+    <!-- User details -->
+    <form>
+
+        <!-- Identifier -->
+        <div class="form-group row justify-content-center">
+            <label for="loginField" class="col-sm-3 col-form-label">
+                Identifiant
+            </label>
+            <div class="col-sm-5">
+                <input type="text"
+                    class="form-control"
+                    [placeholder]="currentPupil.nickname"
+                    disabled
+                    required />
+            </div>
+        </div>
+        <!-- /Identifier -->
+
+        <!-- E-mail -->
+        <div class="form-group row justify-content-center">
+            <label for="loginField" class="col-sm-3 col-form-label">
+                E-mail
+            </label>
+            <div class="col-sm-5">
+                <input type="text"
+                    class="form-control"
+                    [placeholder]="currentPupil.email" 
+                    disabled
+                    required />
+            </div>
+        </div>
+        <!-- /E-mail -->
+
+    </form>
+    <!-- /User details -->
+
+    <hr class="my-5" />
+
+</div>
+<!-- /Account summary -->
+
+<!-- Danger zone -->
+<div class="container mb-2">
+
+    <h3 class="mb-3">
+        <i data-feather="hash" class="mr-1"></i>
+        Paramètres <span class=text-danger>critiques</span>
+    </h3>
+
+    <!-- Password update -->
+    <h4 class="mb-3 mt-2">Mise à jour du mot de passe</h4>
+
+    <!-- Password update form -->
+    <form>
+    
+        <!-- Current password -->
+        <div class="form-group row justify-content-center">
+            <label for="passwordField" class="col-sm-3 col-form-label">
+                Mot de passe actuel
+            </label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" placeholder="Mot de passe" disabled required />
+            </div>
+        </div>
+        <!-- /Current password -->
+    
+        <!-- New password -->
+        <div class="form-group row justify-content-center">
+            <label for="loginField" class="col-sm-3 col-form-label">
+                Nouveau mot de passe
+            </label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" placeholder="Nouveau mot de passe" disabled required />
+            </div>
+        </div>
+        <!-- /New password -->
+
+        <!-- Password confirmation -->
+        <div class="form-group row justify-content-center">
+            <label for="loginField" class="col-sm-3 col-form-label">
+                Confirmer le mot de passe
+            </label>
+            <div class="col-sm-5">
+                <input type="text" class="form-control" placeholder="Nouveau mot de passe" disabled required />
+            </div>
+        </div>
+        <!-- /Password confirmation -->
+
+        <!-- Form buttons -->
+        <div class="form-group row justify-content-center">
+            <button type="submit" 
+                    class="order-lg-2 mr-lg-2 mr-md-5 mx-4 my-2 col-sm-1 col-md-5 col-lg-3 btn btn-success"
+                    disabled>
+                Mettre à jour
+            </button>
+        </div>
+        <!-- /Form buttons -->
+    
+    </form>
+    <!-- /Password update form -->
+    <!-- /Password update -->
+
+    <!-- Account deletion -->
+    <h4 class="mb-3 mt-2">Supprimer mon compte</h4>
+
+    <p class="text-justify mb-3">
+        Cliquez sur le bouton ci-dessous pour <span class="text-danger">supprimer votre compte</span>. <br />
+        Une fois votre compte supprimé, <span class="text-danger">toutes les données</span> associées
+        à votre compte seront <span class="text-danger">définitivement supprimées</span>. 
+    </p>
+
+    <button type="button" 
+                class="btn btn-danger mt-3 mb-5"
+                data-toggle="modal"
+                data-target="#accountDeletion">
+        <i data-feather="trash-2" class="mr-1"></i> Supprimer mon compte
+    </button>
+    <!-- /Account deletion -->
+
+</div>
+<!-- /Danger zone -->
+
+<!-- Account deletion modal -->
+<div class="modal fade" id="accountDeletion" tabindex="-1" role="dialog" aria-labelledby="accountDeletionLabel"
+    aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title" id="accountDeletionModalLabel">Supprimer votre compte</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                Êtes vous certain de vouloir <span class="text-danger">supprimer votre compte ?</span>
+                Cette opération est <span class="text-danger">irreversible</span>.
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" id="closeAccountDeletionModal" class="btn btn-outline-secondary"
+                    data-dismiss="modal">Annuler</button>
+                <button type="button" class="btn btn-danger" (click)="onAccountDeletion()">Supprimer</button>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /Account deletion modal -->
+

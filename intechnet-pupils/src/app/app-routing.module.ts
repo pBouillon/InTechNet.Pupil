@@ -10,6 +10,7 @@ import { HubJoinComponent } from './hubs/hub-join/hub-join.component';
 import { HubDetailsComponent } from './hubs/hub-details/hub-details.component';
 import { ModulePlayComponent } from './module/module-play/module-play.component';
 import { ModulePlayGuard } from './_guards/module-play/module-play.guard';
+import { ProfileComponent } from './profile/profile/profile.component';
 
 const routes: Routes = [
   // Authentication
@@ -65,6 +66,15 @@ const routes: Routes = [
     path: RouteName.ROOT,
     redirectTo: RouteName.BOARD,
     pathMatch: 'full'
+  },
+
+  // Personal
+  // ----------
+  // Profile
+  {
+    path: RouteName.PROFILE,
+    component: ProfileComponent,
+    canActivate: [AuthenticationGuard]
   },
 
   // Errors

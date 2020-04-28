@@ -102,7 +102,7 @@ export class AuthenticationService {
   }
 
   /**
-   * @summary given their information, register the moderator and log them in
+   * @summary given their information, register the pupil and log them in
    * @param login user's provided login value
    * @param email user's provided email value
    * @param password user's provided password value

@@ -4,7 +4,6 @@ import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Router, ActivatedRoute } from '@angular/router';
 import { RouteName } from 'src/app/routing/route-name';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-hub-join',

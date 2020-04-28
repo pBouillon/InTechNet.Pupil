@@ -4,6 +4,7 @@ import { HubJoinComponent } from './hub-join.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HubJoinComponent', () => {
   let component: HubJoinComponent;
@@ -15,6 +16,7 @@ describe('HubJoinComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
+        BrowserAnimationsModule,
         ToastrModule.forRoot({
           maxOpened: 3,
           preventDuplicates: true,
